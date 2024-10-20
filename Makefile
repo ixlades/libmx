@@ -19,10 +19,10 @@ $(PROJ_NAME):
 	mv *.o ./obj
 	ar -q libmx.a ./obj/*
 	
-//	$(LANG) $(CFLAGS) ./obj/* -o $(EXEC_NAME) $(LIBS)
+#	$(LANG) $(CFLAGS) ./obj/* -o $(EXEC_NAME) $(LIBS)
 
 uninstall:
-	rm -rf ./obj $(EXEC_NAME)
+	rm -rf ./obj libmx.a
 
 clean:
 	rm -rf ./obj

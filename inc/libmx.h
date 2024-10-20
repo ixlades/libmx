@@ -6,8 +6,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <errno.h>
+#include <fcntl.h>
+
+typedef struct s_list {
+	void *data;
+ 	struct s_list *next;
+} t_list;
+
 
 void mx_printchar(char c);
+void mx_print_unicode(wchar_t c);
 void mx_printstr(const char *s);
 int mx_strlen(const char *s);
 void mx_print_strarr(char **arr, const char *delim);
@@ -47,19 +56,39 @@ int mx_count_substr(const char *str, const char *sub);
 int mx_count_words(const char *str, char delimiter);
 char *mx_strtrim(const char *str);
 bool mx_isspace(char c);
+char *mx_del_extra_spaces(const char *str);
+int count_whitespaces(const char *str);
+char **mx_strsplit(const char *s, char c);
+int return_size_of_word(const char *str, char delimiter);
+char *mx_strjoin(const char *s1, const char *s2);
+char *mx_file_to_str(const char *file);
+char *mx_replace_substr(const char *str, const char *sub, const char *replace);
+int mx_read_line(char **lineptr, size_t buf_size, char delim, const int fd);
+
+/////////////////////////////////MEMORY PACK////////////////////////////////////
+void *mx_memset(void *b, int c, size_t len);
+void *mx_memcpy(void *restrict dst, const void *restrict src, size_t n);
+void *mx_memccpy(void *restrict dst, const void *restrict src, int c, size_t n);
+int mx_memcmp(const void *s1, const void *s2, size_t n);
+void *mx_memchr(const void *s, int c, size_t n);
+void *mx_memrchr(const void *s, int c, size_t n);
+void *mx_memmem(void *big, size_t big_len, void *little, size_t little_len);
+void *mx_memmove(void *dst, void *src, size_t len);
+void *mx_realloc(void *ptr, size_t size);
+
+///////////////////////////////////LIST PACK////////////////////////////////////
+t_list *mx_create_node(void *data);
+void mx_push_front(t_list **list, void *data);
+void mx_push_back(t_list **list, void *data);
+void mx_pop_front(t_list **head);
+void mx_pop_back(t_list **head);
+int mx_list_size(t_list *list);
+t_list *mx_sort_list(t_list *list, bool(*cmp)(void *a, void *b));
 
 
 
 
-
-
-
-
-
-
-
-
-
+bool mx_isspace(char c);
 
 
 

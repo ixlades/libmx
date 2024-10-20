@@ -1,32 +1,30 @@
 #include "libmx.h"
 
 char *mx_strtrim(const char *str) {
-    if (str == NULL) {
-        return NULL;
+    if (str == NULL) return NULL;
+    int start_counter = 0;
+    int end_counter = 0;
+    int str_length = mx_strlen(str);
+	
+	if (str_length == 0) return mx_strnew(0);
+	
+    while (mx_isspace(*(str + start_counter))) {
+        start_counter++;
     }
-    int frstcut = 0;
-    int full_length = mx_strlen(str);
-
-    while (mx_isspace(*str)) {
-        ++str;
-        ++frstcut;
+    while (mx_isspace(*(str + str_length - end_counter - 1))) {
+        end_counter++;
     }
-    if (*str == '\0') {
-        return mx_strnew(0);
+
+    int new_str_len = str_length - (start_counter + end_counter);
+
+    if (new_str_len <= 0) return mx_strnew(0);
+    char *new_str = mx_strnew(new_str_len);
+
+    if (new_str == NULL) return NULL;
+    for (int i = 0; i < new_str_len ; ++i) {
+        new_str[i] = str[start_counter + i];
     }
-    char *str_cpy1 = mx_strnew(full_length - frstcut);
 
-    mx_strncpy(str_cpy1, str, full_length - frstcut);
-    int sec_length = mx_strlen(str_cpy1);
-    int seccut = 0;
-
-    for (int i = 1; mx_isspace(*(str_cpy1 + sec_length - i)); ++i) {
-        ++seccut;
-    }
-    char *fin_cpy = mx_strnew(sec_length - seccut);
-
-    mx_strncpy(fin_cpy, str_cpy1, sec_length - seccut);
-    mx_strdel(&str_cpy1);
-    return fin_cpy;
+    return new_str;
 }
 
